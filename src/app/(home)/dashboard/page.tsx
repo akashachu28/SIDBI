@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useOnboarding } from "../context/OnboardingContext"
 import { Icon, type IconName } from "./_components/Icon"
@@ -10,7 +10,7 @@ import { ProfileReviewStep } from "./_components/ProfileReviewStep"
 
 type OnboardingStep = "help-selection" | "business-info" | "documents" | "profile-review" | "journeys"
 
-const DashboardPage = () => {
+function DashboardContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { state, completeBusinessInfo, completeBusinessProfile, unlockJourney } = useOnboarding()
@@ -594,4 +594,17 @@ function JourneyCard({
   )
 }
 
-export default DashboardPage
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-full items-center justify-center bg-gradient-to-br from-white via-[#fafbfc] to-[#f8f9fa]">
+        <div className="text-center">
+          <div className="mb-4 inline-flex size-12 animate-spin items-center justify-center rounded-full border-4 border-[#e2e8f0] border-t-[#3b82f6]" />
+          <p className="text-sm font-semibold text-[#64748b]">Loading...</p>
+        </div>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
+  )
+}
