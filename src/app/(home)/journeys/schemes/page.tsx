@@ -6,6 +6,18 @@ import { SchemesProvider, useSchemes } from './context/SchemesContext'
 import SchemesHeader from './components/SchemesHeader'
 import Icon from './components/Icon'
 
+interface Scheme {
+  id: string
+  name: string
+  provider: string
+  type: string
+  relevanceScore: number
+  shortDescription: string
+  category: 'central' | 'state' | 'sidbi'
+  iconBg: string
+  iconColor: string
+}
+
 export default function SchemesPage() {
   return (
     <SchemesProvider>
@@ -28,17 +40,17 @@ function SchemesContent() {
     const handleShowSaved = () => setViewMode('saved')
     const handleShowActionPlans = () => setViewMode('action-plans')
     
-    window.addEventListener('showSavedSchemes' as any, handleShowSaved)
-    window.addEventListener('showActionPlans' as any, handleShowActionPlans)
+    window.addEventListener('showSavedSchemes', handleShowSaved)
+    window.addEventListener('showActionPlans', handleShowActionPlans)
     
     return () => {
-      window.removeEventListener('showSavedSchemes' as any, handleShowSaved)
-      window.removeEventListener('showActionPlans' as any, handleShowActionPlans)
+      window.removeEventListener('showSavedSchemes', handleShowSaved)
+      window.removeEventListener('showActionPlans', handleShowActionPlans)
     }
   }, [])
 
   // Mock data for additional schemes
-  const allSchemes = [
+  const allSchemes: Scheme[] = [
     {
       id: 'scheme1',
       name: 'Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE)',
@@ -517,7 +529,7 @@ function SchemeDetailPage({
   onSave,
   onAddToActionPlan
 }: { 
-  scheme: any
+  scheme: Scheme
   onBack: () => void
   isSaved?: boolean
   isInActionPlan?: boolean

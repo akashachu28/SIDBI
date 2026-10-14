@@ -1,5 +1,39 @@
 import React, { useState, useRef, useEffect } from "react"
 
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean
+  interimResults: boolean
+  lang: string
+  start: () => void
+  stop: () => void
+  abort: () => void
+  onresult: (event: SpeechRecognitionEvent) => void
+  onerror: (event: SpeechRecognitionErrorEvent) => void
+  onend: () => void
+}
+
+interface SpeechRecognitionEvent {
+  results: SpeechRecognitionResultList
+}
+
+interface SpeechRecognitionResultList {
+  length: number
+  item: (index: number) => SpeechRecognitionResult
+  [index: number]: SpeechRecognitionResult
+}
+
+interface SpeechRecognitionResult {
+  [index: number]: SpeechRecognitionAlternative
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string
+}
+
+interface SpeechRecognitionErrorEvent {
+  error: string
+}
+
 interface BusinessInfoStepProps {
   businessText: string
   setBusinessText: (text: string) => void
@@ -30,7 +64,7 @@ export function BusinessInfoStep({
 }: BusinessInfoStepProps) {
   const [speechError, setSpeechError] = useState<string | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const recognitionRef = useRef<any>(null)
+  const recognitionRef = useRef<SpeechRecognition | null>(null)
   const baseTextRef = useRef('')
 
   const hasText = businessText.trim().length > 0
@@ -53,16 +87,22 @@ export function BusinessInfoStep({
   }, [])
 
   const startRecording = () => {
-    const SpeechRecognition =
-      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+    const SpeechRecognitionAPI =
+      (window as Window & typeof globalThis & { 
+        SpeechRecognition?: new () => SpeechRecognition;
+        webkitSpeechRecognition?: new () => SpeechRecognition;
+      }).SpeechRecognition || 
+      (window as Window & typeof globalThis & { 
+        webkitSpeechRecognition?: new () => SpeechRecognition;
+      }).webkitSpeechRecognition
 
-    if (!SpeechRecognition) {
+    if (!SpeechRecognitionAPI) {
       setSpeechError("Voice input isn't supported in this browser. Please type instead.")
       return
     }
 
     setSpeechError(null)
-    const recognition = new SpeechRecognition()
+    const recognition = new SpeechRecognitionAPI()
     recognition.continuous = true
     recognition.interimResults = true
     recognition.lang = 'en-IN'
@@ -70,7 +110,7 @@ export function BusinessInfoStep({
     // Keep whatever is already typed and append speech after it
     baseTextRef.current = businessText ? businessText.trimEnd() + ' ' : ''
 
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       let transcript = ''
       for (let i = 0; i < event.results.length; i++) {
         transcript += event.results[i][0].transcript
@@ -78,7 +118,7 @@ export function BusinessInfoStep({
       setBusinessText(baseTextRef.current + transcript)
     }
 
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
         setSpeechError("Microphone access is blocked. Allow it in your browser settings.")
       } else if (event.error !== 'aborted' && event.error !== 'no-speech') {
