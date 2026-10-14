@@ -35,3 +35,12 @@ button:focus-visible {
   background: #cfe1d9;
   color: #183d35;
 }
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

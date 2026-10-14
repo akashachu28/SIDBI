@@ -10,17 +10,17 @@ export default function HomeLayout({
 }) {
   return (
     <OnboardingProvider>
-      <div className="flex min-h-screen bg-[#f5f6f2]">
+      <div className="flex h-dvh overflow-hidden bg-[#f5f6f2]">
         {/* Sidebar */}
         <Sidebar />
         
         {/* Main Content Area */}
-        <div className="ml-[252px] flex min-h-screen flex-1 flex-col">
+        <div className="ml-[252px] flex min-h-0 min-w-0 overflow-hidden flex-1 flex-col">
           {/* Navbar */}
           <Navbar />
           
           {/* Page Content */}
-          <main className="flex-1 px-5 py-7 sm:px-8 lg:px-10 lg:py-9">
+          <main className="min-h-0 min-w-0 flex-1 overflow-y-auto">
             {children}
           </main>
         </div>

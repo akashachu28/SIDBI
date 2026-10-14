@@ -17,7 +17,8 @@ export default function MarketReadyPage() {
 
 function MarketReadyContent() {
   return (
-    <div className="mx-auto max-w-360">
+    <div className="px-5 py-7 sm:px-8 lg:px-10 lg:py-9">
+      <div className="mx-auto max-w-360">
       {/* Journey Header */}
       <MarketReadyHeader />
 
@@ -32,6 +33,7 @@ function MarketReadyContent() {
         {/* Progress & Actions Sidebar */}
         <ProgressSidebar />
       </div>
+    </div>
     </div>
   )
 }

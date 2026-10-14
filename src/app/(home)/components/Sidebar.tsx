@@ -79,35 +79,30 @@ const navItems: { label: string; icon: IconName; href: string; badge?: boolean }
   { label: "Profile", icon: "dashboard", href: "/dashboard" },
   { label: "Credit Ready", icon: "credit", href: "/journeys/credit-ready", badge: true },
   { label: "Schemes & Compliance", icon: "schemes", href: "/journeys/schemes", badge: true },
-  { label: "Market Ready", icon: "market", href: "/journeys/market-ready", badge: true },
+  // { label: "Market Ready", icon: "market", href: "/journeys/market-ready", badge: true },
 ]
 
-const manageItems: { label: string; icon: IconName; href: string }[] = [
-  { label: "My Action Plan", icon: "plan", href: "/action-plan" },
-  { label: "My Progress", icon: "progress", href: "/progress" },
-  { label: "Connections", icon: "connections", href: "/connections" },
-]
 
 const Sidebar = () => {
   const pathname = usePathname()
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-[252px] flex-col border-r border-[#e3e6e1] bg-[#fbfcf9]">
+    <aside className="fixed left-0 top-0 z-40 flex h-screen w-[252px] flex-col border-r border-[#e2e8f0] bg-white shadow-[0_0_24px_rgba(15,23,42,0.04)]">
       {/* Logo/Brand */}
-      <div className="flex h-[82px] items-center px-7">
+      <div className="flex h-[82px] items-center border-b border-[#f1f5f9] px-7">
         <div className="flex items-center gap-2.5">
-          <span className="grid size-8 place-items-center rounded-[10px] bg-[#183d35] text-white">
+          <span className="grid size-8 place-items-center rounded-[10px] bg-gradient-to-br from-[#3b82f6] to-[#2563eb] text-white shadow-[0_4px_12px_rgba(59,130,246,0.2)]">
             <svg viewBox="0 0 32 32" className="size-5" fill="none" aria-hidden="true">
               <path d="M7 22V10l9 7 9-7v12" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
-          <span className="text-[21px] font-bold tracking-[-0.04em]">mialo</span>
+          <span className="text-[21px] font-bold tracking-[-0.04em] text-[#0f172a]">mialo</span>
         </div>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-3.5 py-4">
-        <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#9aa19d]">Workspace</p>
+        <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#94a3b8]">Workspace</p>
         <div className="space-y-1">
           {navItems.map((item) => {
             const isActive = pathname === item.href
@@ -115,51 +110,35 @@ const Sidebar = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold transition ${
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold transition-all ${
                   isActive
-                    ? "bg-[#e7efe9] text-[#1d5145]"
-                    : "text-[#68716d] hover:bg-[#f0f2ee] hover:text-[#24332e]"
+                    ? "bg-[#eff6ff] text-[#1e40af] shadow-sm"
+                    : "text-[#64748b] hover:bg-[#f8fafc] hover:text-[#0f172a]"
                 }`}
               >
                 <Icon name={item.icon} className="size-[18px]" />
                 {item.label}
-                {item.badge && <span className="ml-auto size-1.5 rounded-full bg-[#d0a155]" />}
+                {item.badge && (
+                  <span className="ml-auto flex size-5 items-center justify-center rounded-full bg-[#3b82f6] text-[9px] font-bold text-white">
+                    !
+                  </span>
+                )}
               </Link>
             )
           })}
         </div>
 
-        {/* <p className="px-3 pb-2 pt-8 text-[10px] font-bold uppercase tracking-[0.16em] text-[#9aa19d]">Manage</p>
-        <div className="space-y-1">
-          {manageItems.map((item) => {
-            const isActive = pathname === item.href
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold transition ${
-                  isActive
-                    ? "bg-[#e7efe9] text-[#1d5145]"
-                    : "text-[#68716d] hover:bg-[#f0f2ee] hover:text-[#24332e]"
-                }`}
-              >
-                <Icon name={item.icon} className="size-[18px]" />
-                {item.label}
-              </Link>
-            )
-          })}
-        </div> */}
       </nav>
 
       {/* User Profile Footer */}
-      <div className="border-t border-[#e7e9e5] p-3.5">
-        <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left hover:bg-[#f0f2ee]">
-          <span className="grid size-9 place-items-center rounded-full bg-[#dce9e3] text-xs font-bold text-[#28574c]">AS</span>
+      <div className="border-t border-[#f1f5f9] p-3.5">
+        <button className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all hover:bg-[#f8fafc]">
+          <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-[#3b82f6] to-[#2563eb] text-xs font-bold text-white shadow-[0_4px_12px_rgba(59,130,246,0.15)]">AS</span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-xs font-bold text-[#26332f]">Vinod</span>
-            <span className="block truncate text-[10px] text-[#8a928e]">Mialo Technologies</span>
+            <span className="block truncate text-xs font-bold text-[#0f172a]">Vinod</span>
+            <span className="block truncate text-[10px] text-[#64748b]">Mialo Technologies</span>
           </span>
-          <Icon name="settings" className="size-4 text-[#8a928e]" />
+          <Icon name="settings" className="size-4 text-[#94a3b8] transition-colors group-hover:text-[#3b82f6]" />
         </button>
       </div>
     </aside>
