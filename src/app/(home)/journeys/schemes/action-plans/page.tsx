@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Icon from '../components/Icon'
 
-export default function ActionPlanPage() {
+function ActionPlanContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const schemeId = searchParams.get('scheme')
@@ -224,5 +224,20 @@ export default function ActionPlanPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ActionPlanPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-full items-center justify-center bg-gradient-to-br from-white via-[#fafbfc] to-[#f8f9fa]">
+        <div className="text-center">
+          <div className="mb-4 inline-flex size-12 animate-spin items-center justify-center rounded-full border-4 border-[#e2e8f0] border-t-[#3b82f6]" />
+          <p className="text-sm font-semibold text-[#64748b]">Loading action plan...</p>
+        </div>
+      </div>
+    }>
+      <ActionPlanContent />
+    </Suspense>
   )
 }
