@@ -492,7 +492,7 @@ export function ProfileReviewStep({ initialData, onBack, onNext }: ProfileReview
   return (
     <div className="relative flex h-full flex-col overflow-hidden bg-gradient-to-b from-white via-white to-[#f5f8ff]">
       {/* Top bar */}
-      <div className="relative z-10 flex items-center justify-between px-6 py-5">
+      <div className="relative z-10 flex items-center justify-between px-6 py-3">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-[#64748b] transition-colors hover:bg-[#f1f5f9] hover:text-[#0f172a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3b82f6]/40"
@@ -505,11 +505,20 @@ export function ProfileReviewStep({ initialData, onBack, onNext }: ProfileReview
         <span className="rounded-full bg-[#eff6ff] px-3.5 py-1.5 text-xs font-semibold text-[#1e40af]">
           Step 4 of 4
         </span>
+        <button
+            onClick={handleComplete}
+            className="group flex items-center gap-2 rounded-full bg-gradient-to-br from-[#10b981] to-[#059669] px-7 py-3 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(16,185,129,0.35)] transition-all hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10b981]/40"
+          >
+            Complete setup
+            <svg className="size-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
       </div>
 
       {/* Scrollable content */}
       <div className="relative z-10 flex-1 overflow-y-auto px-6 pb-8">
-        <div className="mx-auto w-full max-w-[760px]">
+        <div className="mx-auto w-full max-w-[1200px]">
           {/* Heading */}
           <div className="mb-8 mt-2">
             <h1 className="text-3xl font-semibold tracking-tight text-[#0f172a] sm:text-4xl">
@@ -721,27 +730,7 @@ export function ProfileReviewStep({ initialData, onBack, onNext }: ProfileReview
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="relative z-10 border-t border-[#e2e8f0] bg-white/95 px-6 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[760px] items-center justify-between gap-4">
-          <p className="text-sm" aria-live="polite">
-            {submitted && hasErrors ? (
-              <span className="text-red-500">Fix the highlighted fields to continue</span>
-            ) : (
-              <span className="text-[#64748b]">You can change these later</span>
-            )}
-          </p>
-          <button
-            onClick={handleComplete}
-            className="group flex items-center gap-2 rounded-full bg-gradient-to-br from-[#10b981] to-[#059669] px-7 py-3 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(16,185,129,0.35)] transition-all hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#10b981]/40"
-          >
-            Complete setup
-            <svg className="size-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </button>
-        </div>
-      </div>
+      
     </div>
   )
 }

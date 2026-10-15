@@ -142,6 +142,33 @@ function DashboardContent() {
     //help section
       return (
         <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-gradient-to-br from-white via-[#fafbfc] to-[#f8f9fa]">
+          {/* top bar  */}
+            <div className="relative z-10  flex items-center justify-between px-6 py-3">
+              <button
+                onClick={() => setCurrentStep("journeys")}
+                className="flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-[#64748b] transition-colors hover:bg-[#f1f5f9] hover:text-[#0f172a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3b82f6]/40"
+              >
+                Cancel
+              </button>
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#eff6ff] px-4 py-1.5">
+                  <span className="size-2 rounded-full bg-[#3b82f6]" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#1e40af]">
+                    Step 1 of 4
+                  </span>
+                </div>
+              <button
+                onClick={handleNextFromHelpSelection}
+                disabled={selectedHelp.length === 0}
+                className={`flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3b82f6]/40  ${
+                  selectedHelp.length === 0
+                    ? 'cursor-not-allowed bg-[#e2e8f0] text-[#94a3b8]'
+                    : 'bg-[#3b82f6] text-white shadow-[0_4px_16px_rgba(59,130,246,0.2)] hover:bg-[#2563eb] hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)]'
+                }`}
+              >
+                Continue
+                <Icon name="arrow" className="size-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
           {/* Subtle Background Elements */}
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute left-[20%] top-[10%] size-64 animate-pulse rounded-full bg-gradient-to-br from-[#3b82f6]/4 to-transparent blur-3xl" style={{ animationDuration: '8s' }} />
@@ -150,15 +177,11 @@ function DashboardContent() {
 
           {/* Scrollable Content Area */}
           <div className="relative flex-1 overflow-y-auto px-5 py-7 sm:px-8 lg:px-10 lg:py-9">
+            
             <div className="mx-auto max-w-[1200px]">
               {/* Header */}
               <div className="mb-12">
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#eff6ff] px-4 py-1.5">
-                  <span className="size-2 rounded-full bg-[#3b82f6]" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#1e40af]">
-                    Step 1 of 4
-                  </span>
-                </div>
+                
                 <h1 className="text-[40px] font-black leading-tight tracking-[-0.04em] text-[#0f172a]">
                   What would you like help with?
                 </h1>
@@ -231,26 +254,7 @@ function DashboardContent() {
 
           {/* Fixed Action Buttons at Bottom */}
           <div className="relative border-t border-[#e2e8f0] bg-white/95 px-5 py-4 backdrop-blur-xl sm:px-8 lg:px-10">
-            <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4">
-              <button
-                onClick={() => setCurrentStep("journeys")}
-                className="rounded-xl border border-[#e2e8f0] bg-white px-6 py-3 text-sm font-semibold text-[#64748b] transition-all hover:border-[#cbd5e1] hover:bg-[#f8fafc]"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleNextFromHelpSelection}
-                disabled={selectedHelp.length === 0}
-                className={`group flex items-center gap-2 rounded-xl px-8 py-3.5 text-sm font-bold transition-all ${
-                  selectedHelp.length === 0
-                    ? 'cursor-not-allowed bg-[#e2e8f0] text-[#94a3b8]'
-                    : 'bg-[#3b82f6] text-white shadow-[0_4px_16px_rgba(59,130,246,0.2)] hover:bg-[#2563eb] hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)]'
-                }`}
-              >
-                Continue
-                <Icon name="arrow" className="size-4 transition-transform group-hover:translate-x-1" />
-              </button>
-            </div>
+            
           </div>
         </div>
       )

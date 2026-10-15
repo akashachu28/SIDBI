@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.1",
+    "@types/react-speech-recognition": "^3.9.6",
     "axios": "^1.20.0",
     "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-hook-speech-to-text": "^0.8.0",
+    "react-speech-recognition": "^4.0.1",
+    "regenerator-runtime": "^0.14.1"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
